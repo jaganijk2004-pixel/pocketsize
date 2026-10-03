@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}PocketSmart AI — Smart Budget Planning{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✨ Powered by Google Gemini</div>
+    <h1 class="hero-title">
+      Plan smarter.<br />
+      Spend <span class="hero-highlight">within budget.</span>
+    </h1>
+    <p class="hero-subtitle">
+      PocketSmart AI analyses your budget and preferences, then recommends
+      the best products and services across popular platforms — all without
+      breaking the bank.
+    </p>
+    <div class="hero-actions">
+      <a href="{{ url_for('home.planner') }}" class="btn btn--primary btn--lg">
+        🏠 Start Home Planner
+      </a>
+      <a href="{{ url_for('party.planner') }}" class="btn btn--outline btn--lg">
+        Explore All Planners
+      </a>
+    </div>
+    <p class="hero-disclaimer">
+      Prices are estimates and may vary. Verify availability with the retailer.
+    </p>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-card hero-card--1">
+      <span class="hc-icon">🏠</span>
+      <span class="hc-label">Home Planner</span>
+    </div>
+    <div class="hero-card hero-card--2">
+      <span class="hc-icon">🎉</span>
+      <span class="hc-label">Party Planner</span>
+    </div>
+    <div class="hero-card hero-card--3">
+      <span class="hc-icon">💍</span>
+      <span class="hc-label">Jewelry Planner</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Feature Cards ──────────────────────────────────────────────────── -->
+<section class="features" aria-labelledby="features-heading">
+  <div class="section-container">
+    <h2 class="section-title" id="features-heading">Choose Your Planner</h2>
+    <p class="section-sub">Three intelligent planners, one goal: make your budget go further.</p>
+
+    <div class="feature-grid">
+
+      <!-- Home Planner Card -->
+      <div class="feature-card">
+        <div class="feature-icon feature-icon--home">🏠</div>
+        <h3 class="feature-title">Home Interior Planner</h3>
+        <p class="feature-desc">
+          Furnish any room beautifully within your budget. Select room types,
+          specify what you need, and get curated product recommendations from
+          IKEA, Amazon, and Flipkart.
+        </p>
+        <ul class="feature-platforms">
+          <li><span class="platform-badge platform--ikea">IKEA</span></li>
+          <li><span class="platform-badge platform--amazon">Amazon</span></li>
+          <li><span class="platform-badge platform--flipkart">Flipkart</span></li>
+        </ul>
+        <a href="{{ url_for('home.planner') }}" class="btn btn--primary feature-cta">
+          Plan My Home →
+        </a>
+      </div>
+
+      <!-- Party Planner Card -->
+      <div class="feature-card">
+        <div class="feature-icon feature-icon--party">🎉</div>
+        <h3 class="feature-title">Party Budget Planner</h3>
+        <p class="feature-desc">
+          Host the perfect event without financial guesswork. Enter your guest
+          count and event type, and get AI-allocated budgets for catering,
+          decoration, entertainment, and venue.
+        </p>
+        <ul class="feature-platforms">
+          <li><span class="platform-badge platform--swiggy">Swiggy</span></li>
+          <li><span class="platform-badge platform--zomato">Zomato</span></li>
+          <li><span class="platform-badge platform--oyo">OYO</span></li>
+        </ul>
+        <a href="{{ url_for('party.planner') }}" class="btn btn--primary feature-cta">
+          Plan My Party →
+        </a>
+      </div>
+
+      <!-- Jewelry Planner Card -->
+      <div class="feature-card">
+        <div class="feature-icon feature-icon--jewelry">💍</div>
+        <h3 class="feature-title">Jewelry Budget Planner</h3>
+        <p class="feature-desc">
+          Find jewelry that matches your outfit, occasion, and budget. Optionally
+          upload an outfit photo for AI-powered color and style matching.
+        </p>
+        <ul class="feature-platforms">
+          <li><span class="platform-badge platform--amazon">Amazon</span></li>
+          <li><span class="platform-badge platform--flipkart">Flipkart</span></li>
+        </ul>
+        <a href="{{ url_for('jewelry.planner') }}" class="btn btn--primary feature-cta">
+          Find My Jewelry →
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ────────────────────────────────────────────────────── -->
+<section class="how-it-works" aria-labelledby="how-heading">
+  <div class="section-container">
+    <h2 class="section-title" id="how-heading">How It Works</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4 class="step-title">Enter Your Budget</h4>
+        <p class="step-desc">Tell us how much you want to spend and what you're planning for.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4 class="step-title">AI Analyses & Allocates</h4>
+        <p class="step-desc">Gemini 1.5 Flash reviews your needs and distributes your budget intelligently.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4 class="step-title">Get Recommendations</h4>
+        <p class="step-desc">Receive curated product and service suggestions from popular platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

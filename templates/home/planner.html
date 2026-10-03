@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}Home Interior Planner — PocketSmart AI{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="page-header page-header--home">
+  <div class="section-container">
+    <div class="page-header-icon">🏠</div>
+    <h1 class="page-header-title">Home Interior Planner</h1>
+    <p class="page-header-sub">
+      Tell us your budget and which rooms you want to furnish. Our AI will
+      recommend the best products from IKEA, Amazon, and Flipkart — all within
+      your budget.
+    </p>
+  </div>
+</div>
+
+<div class="section-container form-page">
+  <form id="homePlannerForm"
+        action="{{ url_for('home.generate') }}"
+        method="POST"
+        novalidate>
+
+    <!-- ── Budget ──────────────────────────────────────────────────── -->
+    <div class="form-card">
+      <h2 class="form-card-title">
+        <span class="form-card-icon">💰</span> Your Budget
+      </h2>
+      <div class="form-group">
+        <label class="form-label" for="budget">
+          Total Budget (₹ INR) <span class="required">*</span>
+        </label>
+        <div class="input-prefix-wrap">
+          <span class="input-prefix">₹</span>
+          <input
+            type="number"
+            id="budget"
+            name="budget"
+            class="form-input input-with-prefix"
+            placeholder="e.g. 50000"
+            min="1000"
+            step="500"
+            required
+            aria-required="true"
+          />
+        </div>
+        <p class="form-hint">Minimum ₹1,000. The AI will never exceed this amount.</p>
+      </div>
+    </div>
+
+    <!-- ── Room Selection ─────────────────────────────────────────── -->
+    <div class="form-card">
+      <h2 class="form-card-title">
+        <span class="form-card-icon">🏡</span> Select Rooms
+      </h2>
+      <p class="form-card-desc">Choose the rooms you want to furnish or decorate.</p>
+
+      <div class="room-grid" id="roomGrid">
+        {% set rooms = [
+          ("living_room",  "🛋️",  "Living Room"),
+          ("bedroom",      "🛏️",  "Bedroom"),
+          ("kitchen",      "🍳",  "Kitchen"),
+          ("dining_room",  "🍽️",  "Dining Room"),
+          ("bathroom",     "🚿",  "Bathroom")
+        ] %}
+        {% for room_key, room_icon, room_label in rooms %}
+        <label class="room-tile" for="room_{{ room_key }}">
+          <input
+            type="checkbox"
+            id="room_{{ room_key }}"
+            name="rooms"
+            value="{{ room_key }}"
+            class="room-checkbox"
+            data-room="{{ room_key }}"
+          />
+          <span class="room-tile-icon">{{ room_icon }}</span>
+          <span class="room-tile-label">{{ room_label }}</span>
+          <span class="room-tile-check">✓</span>
+        </label>
+        {% endfor %}
+      </div>
+      <p class="form-hint" id="roomError" style="color:var(--color-error);display:none;">
+        Please select at least one room.
+      </p>
+    </div>
+
+    <!-- ── Items per Room (dynamically revealed) ──────────────────── -->
+    <div id="roomItemsContainer">
+      {% set room_configs = [
+        ("living_room",  "Living Room",  ["Sofa", "Center Table", "TV Unit", "Bookshelf", "Ceiling Fan", "Floor Lamp"]),
+        ("bedroom",      "Bedroom",      ["Bed", "Mattress", "Wardrobe", "Dresser", "Bedside Table", "Ceiling Fan", "Bedside Lamp"]),
+        ("kitchen",      "Kitchen",      ["Cabinet", "Kitchen Trolley", "Chimney", "Storage Rack", "Sink", "Under-Cabinet Light"]),
+        ("dining_room",  "Dining Room",  ["Dining Table", "Dining Chairs", "Sideboard", "Pendant Light", "Buffet Cabinet"]),
+        ("bathroom",     "Bathroom",     ["Mirror Cabinet", "Vanity", "Shower", "Toilet", "Towel Rail", "Bathroom Light"])
+      ] %}
+      {% for room_key, room_label, suggestions in room_configs %}
+      <div class="room-items-card" id="items_{{ room_key }}" style="display:none;"
+           data-room="{{ room_key }}">
+        <h3 class="room-items-title">
+          Items for <strong>{{ room_label }}</strong>
+        </h3>
+        <p class="form-hint">Add the items you need. You can type custom items too.</p>
+
+        <div class="item-rows" id="rows_{{ room_key }}">
+          <!-- Item rows injected by JS -->
+        </div>
+
+        <div class="item-suggestions">
+          <span class="suggestions-label">Quick add:</span>
+          {% for s in suggestions %}
+          <button type="button"
+                  class="suggestion-chip"
+                  data-room="{{ room_key }}"
+                  data-item="{{ s }}">+ {{ s }}</button>
+          {% endfor %}
+        </div>
+
+        <!-- Hidden inputs submitted to Flask -->
+        <div class="hidden-inputs" id="hidden_{{ room_key }}"></div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- ── Submit ──────────────────────────────────────────────────── -->
+    <div class="form-submit-row">
+      <button type="submit" class="btn btn--primary btn--lg btn--full" id="submitBtn">
+        <span class="btn-icon">✨</span>
+        Generate My Home Plan
+      </button>
+      <p class="submit-hint">This usually takes 10–20 seconds</p>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}Party Plan Results — PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="page-header page-header--party">
+  <div class="section-container">
+    <div class="page-header-icon">🎉</div>
+    <h1 class="page-header-title">Your Party Plan</h1>
+    <p class="page-header-sub">AI-generated event recommendations tailored to your budget and guest count.</p>
+  </div>
+</div>
+
+<div class="section-container results-page">
+
+  <!-- ── Budget Too Low Warning ──────────────────────────────────── -->
+  {% if result.budget_too_low %}
+  <div class="alert alert--warning">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <strong>Budget may be too low</strong> for the selected event configuration.
+      {% if result.suggested_minimum_budget %}
+      The AI suggests a minimum of
+      <strong>₹{{ "{:,.0f}".format(result.suggested_minimum_budget) }}</strong>.
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ── Event Summary ─────────────────────────────────────────── -->
+  {% if result.event_summary %}
+  <div class="event-summary-card">
+    <span class="event-summary-icon">📋</span>
+    <p class="event-summary-text">{{ result.event_summary }}</p>
+  </div>
+  {% endif %}
+
+  <!-- ── Budget Summary Bar ─────────────────────────────────────── -->
+  {% set spent_pct = ((result.total_estimated_cost / result.total_budget) * 100) | round(1) if result.total_budget else 0 %}
+  <div class="budget-summary">
+    <div class="budget-summary-header">
+      <h2 class="budget-summary-title">Budget Summary</h2>
+      <span class="price-note-badge">{{ result.price_note }}</span>
+    </div>
+    <div class="budget-bars">
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Total Budget</span>
+        <span class="budget-bar-value budget-bar-value--total">
+          ₹{{ "{:,.0f}".format(result.total_budget) }}
+        </span>
+      </div>
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Estimated Spend</span>
+        <span class="budget-bar-value budget-bar-value--spent
+          {% if spent_pct >= 90 %}budget-bar-value--warn{% endif %}">
+          ₹{{ "{:,.0f}".format(result.total_estimated_cost) }}
+        </span>
+      </div>
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Remaining</span>
+        <span class="budget-bar-value budget-bar-value--remaining">
+          ₹{{ "{:,.0f}".format(result.remaining_budget) }}
+        </span>
+      </div>
+    </div>
+    <div class="budget-progress-bar">
+      <div class="budget-progress-fill
+        {% if spent_pct >= 90 %}budget-progress-fill--warn
+        {% else %}budget-progress-fill--ok{% endif %}"
+        style="width: {{ [spent_pct, 100] | min }}%"
+        role="progressbar"
+        aria-valuenow="{{ spent_pct }}"
+        aria-valuemin="0"
+        aria-valuemax="100">
+      </div>
+    </div>
+    <p class="budget-progress-label">{{ spent_pct }}% of budget allocated</p>
+  </div>
+
+  <!-- ── Category Breakdown Table ──────────────────────────────── -->
+  {% if result.categories %}
+  <div class="results-section">
+    <h2 class="results-section-title">Budget Breakdown</h2>
+    <div class="breakdown-table-wrap">
+      <table class="breakdown-table" role="table">
+        <thead>
+          <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Recommendation</th>
+            <th scope="col">Platform</th>
+            <th scope="col">Allocated</th>
+            <th scope="col">Estimated Spend</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cat in result.categories %}
+          <tr>
+            <td>
+              <span class="category-label category-label--{{ cat.category | lower }}">
+                {% if cat.category == 'Catering' %}🍽️
+                {% elif cat.category == 'Decoration' %}🎀
+                {% elif cat.category == 'Entertainment' %}🎵
+                {% elif cat.category == 'Venue' %}🏢
+                {% else %}📦{% endif %}
+                {{ cat.category }}
+              </span>
+            </td>
+            <td>{{ cat.recommendation.name if cat.recommendation else '—' }}</td>
+            <td>
+              {% if cat.recommendation %}
+              <span class="platform-badge platform--{{ cat.recommendation.platform | lower | replace(' ', '') }}">
+                {{ cat.recommendation.platform }}
+              </span>
+              {% endif %}
+            </td>
+            <td>₹{{ "{:,.0f}".format(cat.allocated_budget) }}</td>
+            <td>
+              <strong>₹{{ "{:,.0f}".format(cat.estimated_spend) }}</strong>
+              <span class="demo-price-tag-sm">Est.</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="breakdown-total-row">
+            <td colspan="3"><strong>Total</strong></td>
+            <td><strong>₹{{ "{:,.0f}".format(result.total_budget) }}</strong></td>
+            <td>
+              <strong>₹{{ "{:,.0f}".format(result.total_estimated_cost) }}</strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Category Detail Cards ─────────────────────────────────── -->
+  <div class="results-section">
+    <h2 class="results-section-title">Detailed Recommendations</h2>
+    <div class="party-cards-grid">
+      {% for cat in result.categories %}
+      {% set rec = cat.recommendation %}
+      {% if rec %}
+      <div class="party-card">
+        <div class="party-card-header">
+          <span class="party-card-category">
+            {% if cat.category == 'Catering' %}🍽️
+            {% elif cat.category == 'Decoration' %}🎀
+            {% elif cat.category == 'Entertainment' %}🎵
+            {% elif cat.category == 'Venue' %}🏢
+            {% else %}📦{% endif %}
+            {{ cat.category }}
+          </span>
+          <span class="platform-badge platform--{{ rec.platform | lower | replace(' ', '') }}">
+            {{ rec.platform }}
+          </span>
+        </div>
+        <h3 class="party-card-name">{{ rec.name }}</h3>
+        {% if rec.pricing_detail %}
+        <p class="party-card-pricing">{{ rec.pricing_detail }}</p>
+        {% endif %}
+        {% if rec.note %}
+        <p class="party-card-note">{{ rec.note }}</p>
+        {% endif %}
+        <div class="party-card-footer">
+          <span class="product-total-price">₹{{ "{:,.0f}".format(rec.estimated_price) }}</span>
+          <span class="demo-price-tag">Estimated Price</span>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="alert alert--info">
+    <span class="alert-icon">ℹ️</span>
+    No category recommendations were returned. Please try again with a higher budget.
+  </div>
+  {% endif %}
+
+  <!-- ── Actions ────────────────────────────────────────────────── -->
+  <div class="results-actions">
+    <a href="{{ url_for('party.planner') }}" class="btn btn--outline">
+      ← Plan Again
+    </a>
+    <a href="{{ url_for('index') }}" class="btn btn--ghost">
+      Try Another Planner
+    </a>
+  </div>
+
+</div>
+{% endblock %}

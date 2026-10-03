@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block title %}Jewelry Recommendations — PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="page-header page-header--jewelry">
+  <div class="section-container">
+    <div class="page-header-icon">💍</div>
+    <h1 class="page-header-title">Your Jewelry Recommendations</h1>
+    <p class="page-header-sub">AI-curated jewelry picks tailored to your occasion, style, and budget.</p>
+  </div>
+</div>
+
+<div class="section-container results-page">
+
+  <!-- ── Budget Too Low Warning ──────────────────────────────────── -->
+  {% if result.budget_too_low %}
+  <div class="alert alert--warning">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <strong>Budget may be too low</strong> for a complete jewelry look.
+      {% if result.suggested_minimum_budget %}
+      The AI suggests a minimum of
+      <strong>₹{{ "{:,.0f}".format(result.suggested_minimum_budget) }}</strong>.
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ── Outfit Analysis ────────────────────────────────────────── -->
+  {% if result.outfit_analysis %}
+  <div class="outfit-analysis-card">
+    <div class="outfit-analysis-header">
+      <span class="outfit-analysis-icon">👗</span>
+      <h2 class="outfit-analysis-title">Outfit Analysis</h2>
+    </div>
+    <p class="outfit-analysis-text">{{ result.outfit_analysis }}</p>
+    <p class="outfit-analysis-note">
+      ℹ️ The AI analysed colors and style only. No personal information was inferred.
+    </p>
+  </div>
+  {% endif %}
+
+  <!-- ── Budget Summary Bar ─────────────────────────────────────── -->
+  {% set spent_pct = ((result.total_estimated_cost / result.total_budget) * 100) | round(1) if result.total_budget else 0 %}
+  <div class="budget-summary">
+    <div class="budget-summary-header">
+      <h2 class="budget-summary-title">Budget Summary</h2>
+      <span class="price-note-badge">{{ result.price_note }}</span>
+    </div>
+    <div class="budget-bars">
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Total Budget</span>
+        <span class="budget-bar-value budget-bar-value--total">
+          ₹{{ "{:,.0f}".format(result.total_budget) }}
+        </span>
+      </div>
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Estimated Spend</span>
+        <span class="budget-bar-value budget-bar-value--spent
+          {% if spent_pct >= 90 %}budget-bar-value--warn{% endif %}">
+          ₹{{ "{:,.0f}".format(result.total_estimated_cost) }}
+        </span>
+      </div>
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Remaining</span>
+        <span class="budget-bar-value budget-bar-value--remaining">
+          ₹{{ "{:,.0f}".format(result.remaining_budget) }}
+        </span>
+      </div>
+    </div>
+    <div class="budget-progress-bar">
+      <div class="budget-progress-fill
+        {% if spent_pct >= 90 %}budget-progress-fill--warn
+        {% else %}budget-progress-fill--ok{% endif %}"
+        style="width: {{ [spent_pct, 100] | min }}%"
+        role="progressbar"
+        aria-valuenow="{{ spent_pct }}"
+        aria-valuemin="0"
+        aria-valuemax="100">
+      </div>
+    </div>
+    <p class="budget-progress-label">{{ spent_pct }}% of budget allocated</p>
+  </div>
+
+  <!-- ── Jewelry Recommendations ───────────────────────────────── -->
+  {% if result.recommendations %}
+  <div class="results-section">
+    <h2 class="results-section-title">
+      Recommended Pieces
+      <span class="results-count">{{ result.recommendations | length }} item{{ 's' if result.recommendations | length != 1 }}</span>
+    </h2>
+    <div class="jewelry-grid">
+      {% for item in result.recommendations %}
+      <div class="jewelry-card">
+        <div class="jewelry-card-header">
+          <span class="jewelry-type-badge">
+            {% if item.type == 'Necklace Set' %}📿
+            {% elif item.type == 'Necklace' %}📿
+            {% elif item.type == 'Earrings' %}👂
+            {% elif item.type == 'Bracelet' %}⌚
+            {% elif item.type == 'Ring' %}💍
+            {% else %}✨{% endif %}
+            {{ item.type }}
+          </span>
+          <span class="platform-badge platform--{{ item.platform | lower | replace(' ', '') }}">
+            {{ item.platform }}
+          </span>
+        </div>
+
+        <h3 class="jewelry-name">{{ item.name }}</h3>
+
+        {% if item.metal %}
+        <p class="jewelry-metal">
+          <span class="metal-label">Metal:</span> {{ item.metal }}
+        </p>
+        {% endif %}
+
+        {% if item.color_match %}
+        <div class="jewelry-match-block">
+          <span class="match-icon">🎨</span>
+          <p class="jewelry-match-text">{{ item.color_match }}</p>
+        </div>
+        {% endif %}
+
+        {% if item.occasion_match %}
+        <div class="jewelry-match-block">
+          <span class="match-icon">🎯</span>
+          <p class="jewelry-match-text">{{ item.occasion_match }}</p>
+        </div>
+        {% endif %}
+
+        <div class="jewelry-card-footer">
+          <span class="product-total-price">₹{{ "{:,.0f}".format(item.estimated_price) }}</span>
+          <span class="demo-price-tag">Estimated Price</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- ── Total Cost Summary ─────────────────────────────────────── -->
+  <div class="jewelry-total-row">
+    <span class="jewelry-total-label">Combined Estimated Cost:</span>
+    <span class="jewelry-total-value">₹{{ "{:,.0f}".format(result.total_estimated_cost) }}</span>
+    <span class="demo-price-tag">Estimated Price</span>
+  </div>
+
+  {% else %}
+  <div class="alert alert--info">
+    <span class="alert-icon">ℹ️</span>
+    No jewelry recommendations were returned. Please try again with a higher budget
+    or different preferences.
+  </div>
+  {% endif %}
+
+  <!-- ── Actions ────────────────────────────────────────────────── -->
+  <div class="results-actions">
+    <a href="{{ url_for('jewelry.planner') }}" class="btn btn--outline">
+      ← Try Again
+    </a>
+    <a href="{{ url_for('index') }}" class="btn btn--ghost">
+      Try Another Planner
+    </a>
+  </div>
+
+</div>
+{% endblock %}

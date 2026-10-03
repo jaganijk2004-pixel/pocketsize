@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Home Plan Results — PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="page-header page-header--home">
+  <div class="section-container">
+    <div class="page-header-icon">🏠</div>
+    <h1 class="page-header-title">Your Home Interior Plan</h1>
+    <p class="page-header-sub">AI-generated recommendations based on your budget and room selections.</p>
+  </div>
+</div>
+
+<div class="section-container results-page">
+
+  <!-- ── Budget Too Low Warning ──────────────────────────────────── -->
+  {% if result.budget_too_low %}
+  <div class="alert alert--warning">
+    <span class="alert-icon">⚠️</span>
+    <div>
+      <strong>Budget may be too low</strong> for the selected rooms and items.
+      {% if result.suggested_minimum_budget %}
+      The AI suggests a minimum of
+      <strong>₹{{ "{:,.0f}".format(result.suggested_minimum_budget) }}</strong>
+      for your configuration.
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ── Budget Summary Bar ─────────────────────────────────────── -->
+  {% set spent_pct = ((result.total_estimated_cost / result.total_budget) * 100) | round(1) if result.total_budget else 0 %}
+  <div class="budget-summary">
+    <div class="budget-summary-header">
+      <h2 class="budget-summary-title">Budget Summary</h2>
+      <span class="price-note-badge">{{ result.price_note }}</span>
+    </div>
+    <div class="budget-bars">
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Total Budget</span>
+        <span class="budget-bar-value budget-bar-value--total">
+          ₹{{ "{:,.0f}".format(result.total_budget) }}
+        </span>
+      </div>
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Estimated Spend</span>
+        <span class="budget-bar-value budget-bar-value--spent
+          {% if spent_pct >= 90 %}budget-bar-value--warn{% endif %}">
+          ₹{{ "{:,.0f}".format(result.total_estimated_cost) }}
+        </span>
+      </div>
+      <div class="budget-bar-item">
+        <span class="budget-bar-label">Remaining</span>
+        <span class="budget-bar-value budget-bar-value--remaining">
+          ₹{{ "{:,.0f}".format(result.remaining_budget) }}
+        </span>
+      </div>
+    </div>
+    <div class="budget-progress-bar">
+      <div class="budget-progress-fill
+        {% if spent_pct >= 90 %}budget-progress-fill--warn
+        {% else %}budget-progress-fill--ok{% endif %}"
+        style="width: {{ [spent_pct, 100] | min }}%"
+        role="progressbar"
+        aria-valuenow="{{ spent_pct }}"
+        aria-valuemin="0"
+        aria-valuemax="100">
+      </div>
+    </div>
+    <p class="budget-progress-label">{{ spent_pct }}% of budget allocated</p>
+  </div>
+
+  <!-- ── Room Recommendations ───────────────────────────────────── -->
+  {% if result.rooms %}
+    {% for room in result.rooms %}
+    <div class="results-section">
+      <div class="results-section-header">
+        <h2 class="results-section-title">{{ room.room }}</h2>
+        <div class="room-budget-chips">
+          <span class="chip chip--allocated">
+            Allocated: ₹{{ "{:,.0f}".format(room.allocated_budget) }}
+          </span>
+          <span class="chip chip--spent">
+            Spend: ₹{{ "{:,.0f}".format(room.estimated_spend) }}
+          </span>
+        </div>
+      </div>
+
+      {% if room["items"] %}
+      <div class="product-grid">
+        {% for item in room["items"] %}
+        <div class="product-card">
+          <div class="product-card-header">
+            <span class="product-category">{{ item.category }}</span>
+            <span class="platform-badge platform--{{ item.platform | lower | replace(' ', '') }}">
+              {{ item.platform }}
+            </span>
+          </div>
+          <h3 class="product-name">{{ item.name }}</h3>
+          {% if item.reason %}
+          <p class="product-reason">{{ item.reason }}</p>
+          {% endif %}
+          <div class="product-card-footer">
+            <div class="product-price-block">
+              {% if item.quantity and item.quantity > 1 %}
+              <span class="product-qty">Qty: {{ item.quantity }} ×</span>
+              <span class="product-unit-price">₹{{ "{:,.0f}".format(item.unit_price) }}</span>
+              <span class="product-equals">=</span>
+              {% endif %}
+              <span class="product-total-price">₹{{ "{:,.0f}".format(item.total_price) }}</span>
+            </div>
+            <span class="demo-price-tag">Estimated Price</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="no-items-msg">No items recommended for this room.</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  {% else %}
+  <div class="alert alert--info">
+    <span class="alert-icon">ℹ️</span>
+    No recommendations were returned. Please try again with a higher budget or fewer rooms.
+  </div>
+  {% endif %}
+
+  <!-- ── Actions ────────────────────────────────────────────────── -->
+  <div class="results-actions">
+    <a href="{{ url_for('home.planner') }}" class="btn btn--outline">
+      ← Plan Again
+    </a>
+    <a href="{{ url_for('index') }}" class="btn btn--ghost">
+      Try Another Planner
+    </a>
+  </div>
+
+</div>
+{% endblock %}

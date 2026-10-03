@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block title %}Jewelry Budget Planner — PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="page-header page-header--jewelry">
+  <div class="section-container">
+    <div class="page-header-icon">💍</div>
+    <h1 class="page-header-title">Jewelry Budget Planner</h1>
+    <p class="page-header-sub">
+      Find jewelry that matches your outfit, occasion, and budget. Optionally upload
+      an outfit photo and our AI will recommend pieces that complement your look.
+    </p>
+  </div>
+</div>
+
+<div class="section-container form-page">
+  <form id="jewelryPlannerForm"
+        action="{{ url_for('jewelry.generate') }}"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate>
+
+    <!-- ── Budget ──────────────────────────────────────────────────── -->
+    <div class="form-card">
+      <h2 class="form-card-title">
+        <span class="form-card-icon">💰</span> Your Budget
+      </h2>
+      <div class="form-group">
+        <label class="form-label" for="budget">
+          Total Jewelry Budget (₹ INR) <span class="required">*</span>
+        </label>
+        <div class="input-prefix-wrap">
+          <span class="input-prefix">₹</span>
+          <input
+            type="number"
+            id="budget"
+            name="budget"
+            class="form-input input-with-prefix"
+            placeholder="e.g. 5000"
+            min="200"
+            step="100"
+            required
+            aria-required="true"
+          />
+        </div>
+        <p class="form-hint">The AI will recommend 2–4 pieces that together stay within your budget.</p>
+      </div>
+    </div>
+
+    <!-- ── Occasion & Style ───────────────────────────────────────── -->
+    <div class="form-card">
+      <h2 class="form-card-title">
+        <span class="form-card-icon">✨</span> Occasion & Style
+      </h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="occasion">
+            Occasion <span class="required">*</span>
+          </label>
+          <select id="occasion" name="occasion" class="form-select" required aria-required="true">
+            <option value="" disabled selected>Select occasion…</option>
+            <option value="Wedding">💒 Wedding</option>
+            <option value="Festival">🪔 Festival</option>
+            <option value="Birthday">🎂 Birthday</option>
+            <option value="Casual">☕ Casual</option>
+            <option value="Office">💼 Office</option>
+            <option value="Party">🥂 Party</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="style">
+            Style Preference <span class="required">*</span>
+          </label>
+          <select id="style" name="style" class="form-select" required aria-required="true">
+            <option value="" disabled selected>Select style…</option>
+            <option value="Traditional">🪷 Traditional</option>
+            <option value="Modern">🔷 Modern</option>
+            <option value="Minimalist">⬜ Minimalist</option>
+            <option value="Statement">💥 Statement</option>
+            <option value="Bohemian">🌸 Bohemian</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="metal">
+          Metal Preference
+        </label>
+        <div class="metal-tiles" role="group" aria-label="Metal preference">
+          {% set metals = [
+            ("Gold",         "🟡", "Gold"),
+            ("Silver",       "⚪", "Silver"),
+            ("Rose Gold",    "🌸", "Rose Gold"),
+            ("Platinum",     "💠", "Platinum"),
+            ("No Preference","🤷", "No Preference")
+          ] %}
+          {% for metal_val, metal_icon, metal_label in metals %}
+          <label class="metal-tile" for="metal_{{ loop.index }}">
+            <input
+              type="radio"
+              id="metal_{{ loop.index }}"
+              name="metal"
+              value="{{ metal_val }}"
+              class="radio-input"
+              {% if metal_val == "No Preference" %}checked{% endif %}
+            />
+            <span class="metal-tile-icon">{{ metal_icon }}</span>
+            <span class="metal-tile-label">{{ metal_label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Outfit Image Upload ────────────────────────────────────── -->
+    <div class="form-card">
+      <h2 class="form-card-title">
+        <span class="form-card-icon">👗</span> Outfit Image
+        <span class="optional-badge">Optional</span>
+      </h2>
+      <p class="form-card-desc">
+        Upload a photo of your outfit and the AI will recommend jewelry that
+        complements its colors and style. Your image is processed in memory and
+        <strong>never stored</strong>.
+      </p>
+
+      <div class="upload-zone" id="uploadZone" role="button" tabindex="0"
+           aria-label="Upload outfit image">
+        <input
+          type="file"
+          id="outfit_image"
+          name="outfit_image"
+          class="upload-input"
+          accept=".jpg,.jpeg,.png,.webp"
+          aria-label="Choose outfit image"
+        />
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <span class="upload-icon">📷</span>
+          <p class="upload-text">Click or drag to upload an outfit photo</p>
+          <p class="upload-hint">JPG, PNG, WebP · Max 5 MB · Person will not be identified</p>
+        </div>
+        <div class="upload-preview" id="uploadPreview" style="display:none;">
+          <img id="previewImg" src="" alt="Outfit preview" class="preview-image" />
+          <div class="preview-meta">
+            <p class="preview-filename" id="previewFilename"></p>
+            <p class="preview-filesize" id="previewFilesize"></p>
+            <button type="button" class="btn btn--ghost btn--sm" id="removeImage">
+              ✕ Remove
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="form-hint upload-error" id="uploadError" style="color:var(--color-error);display:none;"></p>
+    </div>
+
+    <!-- ── Submit ──────────────────────────────────────────────────── -->
+    <div class="form-submit-row">
+      <button type="submit" class="btn btn--primary btn--lg btn--full" id="submitBtn">
+        <span class="btn-icon">✨</span>
+        Find My Jewelry
+      </button>
+      <p class="submit-hint">This usually takes 10–20 seconds</p>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/jewelry.js') }}"></script>
+{% endblock %}

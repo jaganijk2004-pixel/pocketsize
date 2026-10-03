@@ -1,0 +1,240 @@
+{
+  "catering": [
+    {
+      "id": "PC001",
+      "name": "Biryani Feast Package",
+      "platform": "Swiggy",
+      "event_types": ["Birthday", "Casual Gathering", "Corporate", "Anniversary"],
+      "price_per_person": 350,
+      "currency": "INR",
+      "description": "Veg/Non-veg biryani, raita, salad, and gulab jamun per head",
+      "min_guests": 20,
+      "max_guests": 200
+    },
+    {
+      "id": "PC002",
+      "name": "Wedding Banquet Package",
+      "platform": "Zomato",
+      "event_types": ["Wedding"],
+      "price_per_person": 950,
+      "currency": "INR",
+      "description": "Multi-cuisine buffet with starters, mains, desserts, and live counters",
+      "min_guests": 50,
+      "max_guests": 500
+    },
+    {
+      "id": "PC003",
+      "name": "Corporate Lunch Box",
+      "platform": "Swiggy",
+      "event_types": ["Corporate"],
+      "price_per_person": 250,
+      "currency": "INR",
+      "description": "Balanced lunch box: rice, dal, sabzi, chapati, dessert",
+      "min_guests": 10,
+      "max_guests": 300
+    },
+    {
+      "id": "PC004",
+      "name": "Party Snacks & Finger Food Platter",
+      "platform": "Zomato",
+      "event_types": ["Birthday", "Casual Gathering", "Anniversary"],
+      "price_per_person": 200,
+      "currency": "INR",
+      "description": "Samosa, paneer tikka, spring rolls, dips, and mocktails",
+      "min_guests": 10,
+      "max_guests": 100
+    },
+    {
+      "id": "PC005",
+      "name": "South Indian Celebration Spread",
+      "platform": "Swiggy",
+      "event_types": ["Birthday", "Wedding", "Festival", "Anniversary"],
+      "price_per_person": 450,
+      "currency": "INR",
+      "description": "Sadhya-style spread: rice, sambar, rasam, payasam, 10 side dishes",
+      "min_guests": 25,
+      "max_guests": 400
+    },
+    {
+      "id": "PC006",
+      "name": "Kids Birthday Treat Package",
+      "platform": "Zomato",
+      "event_types": ["Birthday"],
+      "price_per_person": 180,
+      "currency": "INR",
+      "description": "Mini sandwiches, nuggets, fruit skewers, cake slice, juice",
+      "min_guests": 10,
+      "max_guests": 60
+    }
+  ],
+  "decoration": [
+    {
+      "id": "PD001",
+      "name": "Basic Balloon & Streamer Setup",
+      "platform": "Amazon",
+      "event_types": ["Birthday", "Casual Gathering"],
+      "estimated_price": 2500,
+      "currency": "INR",
+      "description": "50 balloons, streamers, happy birthday banner, table confetti",
+      "suitable_for": "Indoor"
+    },
+    {
+      "id": "PD002",
+      "name": "Premium Floral & Fairy Light Decor",
+      "platform": "Amazon",
+      "event_types": ["Wedding", "Anniversary"],
+      "estimated_price": 18000,
+      "currency": "INR",
+      "description": "Fresh flower centrepieces, fairy lights canopy, welcome arch",
+      "suitable_for": "Indoor"
+    },
+    {
+      "id": "PD003",
+      "name": "Outdoor Garden Party Kit",
+      "platform": "Flipkart",
+      "event_types": ["Birthday", "Casual Gathering", "Corporate"],
+      "estimated_price": 5500,
+      "currency": "INR",
+      "description": "Paper lanterns, LED string lights, foldable table covers, floral centrepieces",
+      "suitable_for": "Outdoor"
+    },
+    {
+      "id": "PD004",
+      "name": "Corporate Event Branding Package",
+      "platform": "Amazon",
+      "event_types": ["Corporate"],
+      "estimated_price": 8000,
+      "currency": "INR",
+      "description": "Roll-up banners, table runners, podium cover, backdrop",
+      "suitable_for": "Indoor"
+    },
+    {
+      "id": "PD005",
+      "name": "Luxury Wedding Mandap Setup",
+      "platform": "Flipkart",
+      "event_types": ["Wedding"],
+      "estimated_price": 35000,
+      "currency": "INR",
+      "description": "Draped mandap with floral pillars, marigold strings, diyas",
+      "suitable_for": "Both"
+    },
+    {
+      "id": "PD006",
+      "name": "Themed Birthday Backdrop & Props",
+      "platform": "Amazon",
+      "event_types": ["Birthday"],
+      "estimated_price": 3500,
+      "currency": "INR",
+      "description": "Custom backdrop, photo booth props, foil curtains, number balloons",
+      "suitable_for": "Indoor"
+    }
+  ],
+  "entertainment": [
+    {
+      "id": "PE001",
+      "name": "DJ with Sound System (4 hours)",
+      "platform": "OYO Events",
+      "event_types": ["Birthday", "Wedding", "Anniversary", "Casual Gathering"],
+      "estimated_price": 12000,
+      "currency": "INR",
+      "description": "Professional DJ with PA system, light effects, 4-hour set",
+      "suitable_for": "Both"
+    },
+    {
+      "id": "PE002",
+      "name": "Kids Magic & Puppet Show",
+      "platform": "Amazon",
+      "event_types": ["Birthday"],
+      "estimated_price": 4500,
+      "currency": "INR",
+      "description": "45-minute interactive magic and puppet show for children",
+      "suitable_for": "Indoor"
+    },
+    {
+      "id": "PE003",
+      "name": "Live Acoustic Music (2 hours)",
+      "platform": "OYO Events",
+      "event_types": ["Wedding", "Anniversary", "Corporate", "Casual Gathering"],
+      "estimated_price": 8000,
+      "currency": "INR",
+      "description": "Duo performing Bollywood and English classics, acoustic set",
+      "suitable_for": "Both"
+    },
+    {
+      "id": "PE004",
+      "name": "Photobooth with Prints",
+      "platform": "Flipkart",
+      "event_types": ["Birthday", "Wedding", "Anniversary", "Corporate"],
+      "estimated_price": 6000,
+      "currency": "INR",
+      "description": "Self-service photo booth with props and instant 4x6 prints",
+      "suitable_for": "Indoor"
+    },
+    {
+      "id": "PE005",
+      "name": "Corporate Team Games Package",
+      "platform": "OYO Events",
+      "event_types": ["Corporate"],
+      "estimated_price": 5000,
+      "currency": "INR",
+      "description": "Facilitated team-building games and activities for 20–50 people",
+      "suitable_for": "Both"
+    },
+    {
+      "id": "PE006",
+      "name": "Mehendi Artist (3 hours)",
+      "platform": "Amazon",
+      "event_types": ["Wedding", "Festival", "Anniversary"],
+      "estimated_price": 3500,
+      "currency": "INR",
+      "description": "Professional mehendi artist for bridal or party mehendi",
+      "suitable_for": "Indoor"
+    }
+  ],
+  "venue": [
+    {
+      "id": "PV001",
+      "name": "OYO Townhouse Banquet Hall (50 pax)",
+      "platform": "OYO",
+      "event_types": ["Birthday", "Anniversary", "Corporate", "Casual Gathering"],
+      "estimated_price": 15000,
+      "currency": "INR",
+      "description": "Air-conditioned banquet hall, projector, AV system, 50 guest capacity",
+      "capacity": 50,
+      "suitable_for": "Indoor"
+    },
+    {
+      "id": "PV002",
+      "name": "OYO Premium Wedding Hall (200 pax)",
+      "platform": "OYO",
+      "event_types": ["Wedding"],
+      "estimated_price": 75000,
+      "currency": "INR",
+      "description": "Grand wedding hall with stage, catering area, parking, and dressing room",
+      "capacity": 200,
+      "suitable_for": "Indoor"
+    },
+    {
+      "id": "PV003",
+      "name": "Rooftop Garden Venue (80 pax)",
+      "platform": "OYO",
+      "event_types": ["Birthday", "Wedding", "Anniversary", "Casual Gathering"],
+      "estimated_price": 25000,
+      "currency": "INR",
+      "description": "Open rooftop garden venue with city views, suitable for evening events",
+      "capacity": 80,
+      "suitable_for": "Outdoor"
+    },
+    {
+      "id": "PV004",
+      "name": "Corporate Conference Room (30 pax)",
+      "platform": "OYO",
+      "event_types": ["Corporate"],
+      "estimated_price": 8000,
+      "currency": "INR",
+      "description": "Boardroom-style conference facility with projector, whiteboard, catering option",
+      "capacity": 30,
+      "suitable_for": "Indoor"
+    }
+  ]
+}

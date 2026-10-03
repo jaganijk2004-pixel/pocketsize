@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Party Budget Planner — PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="page-header page-header--party">
+  <div class="section-container">
+    <div class="page-header-icon">🎉</div>
+    <h1 class="page-header-title">Party Budget Planner</h1>
+    <p class="page-header-sub">
+      Enter your event details and let PocketSmart AI allocate your budget across
+      catering, decoration, entertainment, and venue — sourced from Swiggy, Zomato, and OYO.
+    </p>
+  </div>
+</div>
+
+<div class="section-container form-page">
+  <form id="partyPlannerForm"
+        action="{{ url_for('party.generate') }}"
+        method="POST"
+        novalidate>
+
+    <!-- ── Budget & Guests ────────────────────────────────────────── -->
+    <div class="form-card">
+      <h2 class="form-card-title">
+        <span class="form-card-icon">💰</span> Budget & Guests
+      </h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="budget">
+            Total Budget (₹ INR) <span class="required">*</span>
+          </label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix">₹</span>
+            <input
+              type="number"
+              id="budget"
+              name="budget"
+              class="form-input input-with-prefix"
+              placeholder="e.g. 80000"
+              min="1000"
+              step="500"
+              required
+              aria-required="true"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="guests">
+            Number of Guests <span class="required">*</span>
+          </label>
+          <input
+            type="number"
+            id="guests"
+            name="guests"
+            class="form-input"
+            placeholder="e.g. 50"
+            min="1"
+            max="1000"
+            required
+            aria-required="true"
+          />
+        </div>
+      </div>
+      <p class="form-hint">The AI will never recommend a plan exceeding your total budget.</p>
+    </div>
+
+    <!-- ── Event Details ──────────────────────────────────────────── -->
+    <div class="form-card">
+      <h2 class="form-card-title">
+        <span class="form-card-icon">📋</span> Event Details
+      </h2>
+
+      <div class="form-group">
+        <label class="form-label" for="event_type">
+          Event Type <span class="required">*</span>
+        </label>
+        <select id="event_type" name="event_type" class="form-select" required aria-required="true">
+          <option value="" disabled selected>Select event type…</option>
+          <option value="Birthday">🎂 Birthday</option>
+          <option value="Wedding">💒 Wedding</option>
+          <option value="Corporate">💼 Corporate</option>
+          <option value="Anniversary">💑 Anniversary</option>
+          <option value="Casual Gathering">🥂 Casual Gathering</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          Venue Preference <span class="required">*</span>
+        </label>
+        <div class="radio-group">
+          <label class="radio-tile" for="venue_indoor">
+            <input type="radio" id="venue_indoor" name="venue_preference" value="Indoor" class="radio-input" />
+            <span class="radio-tile-icon">🏢</span>
+            <span class="radio-tile-label">Indoor</span>
+          </label>
+          <label class="radio-tile" for="venue_outdoor">
+            <input type="radio" id="venue_outdoor" name="venue_preference" value="Outdoor" class="radio-input" />
+            <span class="radio-tile-icon">🌿</span>
+            <span class="radio-tile-label">Outdoor</span>
+          </label>
+          <label class="radio-tile" for="venue_any">
+            <input type="radio" id="venue_any" name="venue_preference" value="No Preference" class="radio-input" checked />
+            <span class="radio-tile-icon">🤷</span>
+            <span class="radio-tile-label">No Preference</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="city">
+            City / Location <span class="optional">(optional)</span>
+          </label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            class="form-input"
+            placeholder="e.g. Chennai, Mumbai"
+            maxlength="100"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="special_requirements">
+          Special Requirements <span class="optional">(optional)</span>
+        </label>
+        <textarea
+          id="special_requirements"
+          name="special_requirements"
+          class="form-textarea"
+          rows="3"
+          placeholder="e.g. Vegan food only, No DJ, Need a kids' play area…"
+          maxlength="500"
+        ></textarea>
+        <p class="form-hint char-count" id="reqCharCount">0 / 500</p>
+      </div>
+    </div>
+
+    <!-- ── Submit ──────────────────────────────────────────────────── -->
+    <div class="form-submit-row">
+      <button type="submit" class="btn btn--primary btn--lg btn--full" id="submitBtn">
+        <span class="btn-icon">✨</span>
+        Generate My Party Plan
+      </button>
+      <p class="submit-hint">This usually takes 10–20 seconds</p>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/party.js') }}"></script>
+{% endblock %}

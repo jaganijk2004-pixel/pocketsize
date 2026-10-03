@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Server Error — PocketSmart AI{% endblock %}
+
+{% block content %}
+<div class="error-page">
+  <div class="error-icon">⚠️</div>
+  <h1 class="error-code">500</h1>
+  <h2 class="error-title">Something Went Wrong</h2>
+  <p class="error-desc">An unexpected error occurred. Please try again in a moment.</p>
+  <a href="{{ url_for('index') }}" class="btn btn--primary">Back to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}PocketSmart AI{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────── -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="{{ url_for('index') }}" class="nav-brand">
+        <span class="brand-icon">💰</span>
+        <span class="brand-name">PocketSmart <span class="brand-ai">AI</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li>
+          <a href="{{ url_for('index') }}"
+             class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('home.planner') }}"
+             class="nav-link {% if request.blueprint == 'home' %}active{% endif %}">
+            🏠 Home Planner
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('party.planner') }}"
+             class="nav-link {% if request.blueprint == 'party' %}active{% endif %}">
+            🎉 Party Planner
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('jewelry.planner') }}"
+             class="nav-link {% if request.blueprint == 'jewelry' %}active{% endif %}">
+            💍 Jewelry Planner
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Flash Messages ──────────────────────────────────────────────── -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for category, message in messages %}
+          <div class="flash flash--{{ category }}" role="alert">
+            <span class="flash-icon">
+              {% if category == 'error' %}❌
+              {% elif category == 'success' %}✅
+              {% else %}ℹ️{% endif %}
+            </span>
+            <span class="flash-message">{{ message }}</span>
+            <button class="flash-close" onclick="this.parentElement.remove()" aria-label="Close">×</button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- ── Main Content ────────────────────────────────────────────────── -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-container">
+      <p class="footer-disclaimer">
+        Prices are estimates and may vary. Product availability and pricing should be
+        verified with the retailer.
+      </p>
+      <p class="footer-copy">
+        © 2026 PocketSmart AI &mdash; Powered by
+        <a href="https://ai.google.dev/" target="_blank" rel="noopener">Google Gemini</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ── Loading Overlay ─────────────────────────────────────────────── -->
+  <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+    <div class="loading-card">
+      <div class="spinner" role="status" aria-label="Loading"></div>
+      <p class="loading-text">PocketSmart AI is thinking…</p>
+      <p class="loading-sub">Analysing your budget and finding the best options</p>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Expose showLoading globally so each page's JS can call it
+    window.showLoading = function () {
+      document.getElementById('loadingOverlay').removeAttribute('aria-hidden');
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    };
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

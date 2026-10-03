@@ -1,0 +1,342 @@
+{
+  "living_room": [
+    {
+      "id": "LR001",
+      "name": "KLIPPAN 2-seat sofa",
+      "category": "Sofa",
+      "platform": "IKEA",
+      "estimated_price": 12999,
+      "currency": "INR",
+      "description": "Compact loveseat with machine-washable cover in multiple colors",
+      "style": "Modern"
+    },
+    {
+      "id": "LR002",
+      "name": "Wakefit Interio 3-seater fabric sofa",
+      "category": "Sofa",
+      "platform": "Amazon",
+      "estimated_price": 22999,
+      "currency": "INR",
+      "description": "Premium fabric sofa with high-density foam cushions",
+      "style": "Contemporary"
+    },
+    {
+      "id": "LR003",
+      "name": "LACK side table",
+      "category": "Side Table",
+      "platform": "IKEA",
+      "estimated_price": 1999,
+      "currency": "INR",
+      "description": "Simple and stylish side table, available in multiple finishes",
+      "style": "Minimalist"
+    },
+    {
+      "id": "LR004",
+      "name": "HEMNES TV unit",
+      "category": "TV Unit",
+      "platform": "IKEA",
+      "estimated_price": 17999,
+      "currency": "INR",
+      "description": "Solid wood TV unit with drawer storage and cable management",
+      "style": "Classic"
+    },
+    {
+      "id": "LR005",
+      "name": "Flipkart SmartBuy LED Floor Lamp",
+      "category": "Lighting",
+      "platform": "Flipkart",
+      "estimated_price": 2499,
+      "currency": "INR",
+      "description": "Adjustable LED floor lamp with warm and cool light modes",
+      "style": "Modern"
+    },
+    {
+      "id": "LR006",
+      "name": "KALLAX shelving unit",
+      "category": "Bookshelf",
+      "platform": "IKEA",
+      "estimated_price": 8999,
+      "currency": "INR",
+      "description": "Versatile shelving unit, works as room divider or storage",
+      "style": "Modern"
+    },
+    {
+      "id": "LR007",
+      "name": "AmazonBasics ceiling fan 48-inch",
+      "category": "Ceiling Fan",
+      "platform": "Amazon",
+      "estimated_price": 3499,
+      "currency": "INR",
+      "description": "Energy-efficient BEE-rated ceiling fan with 3 speed settings",
+      "style": "Contemporary"
+    },
+    {
+      "id": "LR008",
+      "name": "Godrej Interio center table",
+      "category": "Center Table",
+      "platform": "Flipkart",
+      "estimated_price": 7999,
+      "currency": "INR",
+      "description": "Engineered wood center table with glass top",
+      "style": "Modern"
+    }
+  ],
+  "bedroom": [
+    {
+      "id": "BR001",
+      "name": "MALM queen bed frame",
+      "category": "Bed",
+      "platform": "IKEA",
+      "estimated_price": 21999,
+      "currency": "INR",
+      "description": "Clean-line queen bed with under-bed storage drawers",
+      "style": "Minimalist"
+    },
+    {
+      "id": "BR002",
+      "name": "Wakefit Orthopedic Memory Foam Mattress (Queen)",
+      "category": "Mattress",
+      "platform": "Amazon",
+      "estimated_price": 14999,
+      "currency": "INR",
+      "description": "7-inch memory foam mattress with orthopedic support",
+      "style": "Contemporary"
+    },
+    {
+      "id": "BR003",
+      "name": "PAX wardrobe 150cm",
+      "category": "Wardrobe",
+      "platform": "IKEA",
+      "estimated_price": 27999,
+      "currency": "INR",
+      "description": "Customizable wardrobe with sliding doors and interior fittings",
+      "style": "Modern"
+    },
+    {
+      "id": "BR004",
+      "name": "MALM 6-drawer dresser",
+      "category": "Dresser",
+      "platform": "IKEA",
+      "estimated_price": 15999,
+      "currency": "INR",
+      "description": "Smooth-running drawers with anti-tip safety fittings",
+      "style": "Minimalist"
+    },
+    {
+      "id": "BR005",
+      "name": "Syska LED Bedside Lamp",
+      "category": "Lighting",
+      "platform": "Amazon",
+      "estimated_price": 999,
+      "currency": "INR",
+      "description": "Touch-control LED bedside lamp with 3 brightness levels",
+      "style": "Modern"
+    },
+    {
+      "id": "BR006",
+      "name": "Usha Striker ceiling fan",
+      "category": "Ceiling Fan",
+      "platform": "Flipkart",
+      "estimated_price": 2799,
+      "currency": "INR",
+      "description": "High-speed ceiling fan with aerodynamic blades",
+      "style": "Contemporary"
+    },
+    {
+      "id": "BR007",
+      "name": "HEMNES bedside table",
+      "category": "Bedside Table",
+      "platform": "IKEA",
+      "estimated_price": 5999,
+      "currency": "INR",
+      "description": "Solid pine bedside table with 1 drawer and open shelf",
+      "style": "Classic"
+    }
+  ],
+  "kitchen": [
+    {
+      "id": "KT001",
+      "name": "METOD base cabinet with shelves",
+      "category": "Cabinet",
+      "platform": "IKEA",
+      "estimated_price": 8999,
+      "currency": "INR",
+      "description": "Base kitchen cabinet with adjustable shelves",
+      "style": "Modern"
+    },
+    {
+      "id": "KT002",
+      "name": "Hindware kitchen sink stainless steel",
+      "category": "Sink",
+      "platform": "Amazon",
+      "estimated_price": 4999,
+      "currency": "INR",
+      "description": "Single bowl stainless steel kitchen sink with drain",
+      "style": "Contemporary"
+    },
+    {
+      "id": "KT003",
+      "name": "Philips LED under-cabinet light bar",
+      "category": "Lighting",
+      "platform": "Flipkart",
+      "estimated_price": 1499,
+      "currency": "INR",
+      "description": "Adhesive LED strip for under-cabinet task lighting",
+      "style": "Modern"
+    },
+    {
+      "id": "KT004",
+      "name": "BROR kitchen trolley",
+      "category": "Kitchen Trolley",
+      "platform": "IKEA",
+      "estimated_price": 6999,
+      "currency": "INR",
+      "description": "Versatile trolley with shelves and wheels for easy movement",
+      "style": "Industrial"
+    },
+    {
+      "id": "KT005",
+      "name": "Prestige kitchen chimney 60cm",
+      "category": "Chimney",
+      "platform": "Amazon",
+      "estimated_price": 9999,
+      "currency": "INR",
+      "description": "Auto-clean chimney with touch control and LED lighting",
+      "style": "Modern"
+    },
+    {
+      "id": "KT006",
+      "name": "Cello modular kitchen rack set",
+      "category": "Storage Rack",
+      "platform": "Flipkart",
+      "estimated_price": 1899,
+      "currency": "INR",
+      "description": "3-tier stainless steel kitchen organizer rack",
+      "style": "Contemporary"
+    }
+  ],
+  "dining_room": [
+    {
+      "id": "DR001",
+      "name": "NORDVIKEN dining table (4 seater)",
+      "category": "Dining Table",
+      "platform": "IKEA",
+      "estimated_price": 14999,
+      "currency": "INR",
+      "description": "Extendable solid pine dining table seats 4–6",
+      "style": "Scandinavian"
+    },
+    {
+      "id": "DR002",
+      "name": "NORDVIKEN dining chair (set of 4)",
+      "category": "Dining Chair",
+      "platform": "IKEA",
+      "estimated_price": 9999,
+      "currency": "INR",
+      "description": "Matching dining chairs in solid pine, easy to assemble",
+      "style": "Scandinavian"
+    },
+    {
+      "id": "DR003",
+      "name": "Flipkart Perfect Homes 6-seater dining set",
+      "category": "Dining Set",
+      "platform": "Flipkart",
+      "estimated_price": 28999,
+      "currency": "INR",
+      "description": "Engineered wood dining table with 6 cushioned chairs",
+      "style": "Contemporary"
+    },
+    {
+      "id": "DR004",
+      "name": "Amazon Basics pendant light",
+      "category": "Lighting",
+      "platform": "Amazon",
+      "estimated_price": 2199,
+      "currency": "INR",
+      "description": "Adjustable-height pendant light ideal for dining table",
+      "style": "Modern"
+    },
+    {
+      "id": "DR005",
+      "name": "HEMNES sideboard",
+      "category": "Sideboard",
+      "platform": "IKEA",
+      "estimated_price": 18999,
+      "currency": "INR",
+      "description": "Classic solid wood sideboard with spacious storage",
+      "style": "Classic"
+    },
+    {
+      "id": "DR006",
+      "name": "Orientbell buffet cabinet with wine rack",
+      "category": "Buffet Cabinet",
+      "platform": "Flipkart",
+      "estimated_price": 11999,
+      "currency": "INR",
+      "description": "Engineered wood buffet with wine rack and drawer",
+      "style": "Contemporary"
+    }
+  ],
+  "bathroom": [
+    {
+      "id": "BA001",
+      "name": "GODMORGON wall cabinet with mirror",
+      "category": "Mirror Cabinet",
+      "platform": "IKEA",
+      "estimated_price": 9999,
+      "currency": "INR",
+      "description": "Wall cabinet with mirrored door and LED lighting",
+      "style": "Modern"
+    },
+    {
+      "id": "BA002",
+      "name": "Jaquar shower set",
+      "category": "Shower",
+      "platform": "Amazon",
+      "estimated_price": 5499,
+      "currency": "INR",
+      "description": "Overhead and hand-held shower combo with chrome finish",
+      "style": "Contemporary"
+    },
+    {
+      "id": "BA003",
+      "name": "LILLÅNGEN sink cabinet",
+      "category": "Vanity",
+      "platform": "IKEA",
+      "estimated_price": 8499,
+      "currency": "INR",
+      "description": "Sink cabinet with door and open shelf for bathroom storage",
+      "style": "Minimalist"
+    },
+    {
+      "id": "BA004",
+      "name": "Philips Hue bathroom waterproof light",
+      "category": "Lighting",
+      "platform": "Amazon",
+      "estimated_price": 3499,
+      "currency": "INR",
+      "description": "IP65 rated LED bathroom ceiling light",
+      "style": "Modern"
+    },
+    {
+      "id": "BA005",
+      "name": "ENUDDEN towel rail",
+      "category": "Towel Rail",
+      "platform": "IKEA",
+      "estimated_price": 799,
+      "currency": "INR",
+      "description": "Simple wall-mounted towel rail in stainless steel finish",
+      "style": "Minimalist"
+    },
+    {
+      "id": "BA006",
+      "name": "Cera wall-hung toilet",
+      "category": "Toilet",
+      "platform": "Flipkart",
+      "estimated_price": 12999,
+      "currency": "INR",
+      "description": "Dual flush wall-hung toilet with soft-close seat",
+      "style": "Contemporary"
+    }
+  ]
+}
